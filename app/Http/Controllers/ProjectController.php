@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class ProjectController extends Controller
 {
     /**
@@ -11,7 +11,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth::user();
+        $projects = $user->projects()->with('milestones')->get();
+        return view('projects.index', compact('projects'));
     }
 
     /**
